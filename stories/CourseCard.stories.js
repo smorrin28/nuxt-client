@@ -2,7 +2,7 @@ import { storiesOf } from "@storybook/vue";
 import { text, number, color } from "@storybook/addon-knobs";
 
 import CourseCard from "@components/molecules/CourseCard";
-import notes from "@docs/storybook/courseCard.md";
+import notes from "@docs/storybook/ciourseCard.md";
 
 import { defaultCourse, courseOldDataFormat } from "./mockData/CourseCard";
 
