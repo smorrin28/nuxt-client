@@ -66,11 +66,11 @@
 							}
 						"
 					>
-            <base-icon source="custom" icon="open_new_window" />
-            {{ $t("pages.content.material.toMaterial") }}
-          </base-button>
+						<base-icon source="custom" icon="open_new_window" />
+						{{ $t("pages.content.material.toMaterial") }}
+					</base-button>
 
-          <base-button
+					<base-button
 						v-if="isAntaresContent"
 						design="outline"
 						class="content-button"
@@ -231,13 +231,13 @@ export default {
 				"ccm:replicationsourceid"
 			);
 		},
-    isAntaresContent() {
-      const source = getMetadataAttribute(
-          this.resource.properties,
-          "ccm:replicationsource"
-      );
-      return source && source.toLowerCase().includes("antares");
-    },
+		isAntaresContent() {
+			const source = getMetadataAttribute(
+				this.resource.properties,
+				"ccm:replicationsource"
+			);
+			return source && source.toLowerCase().includes("antares");
+		},
 		description() {
 			return (
 				this.resource.description ||
@@ -278,12 +278,12 @@ export default {
 			);
 			window.open(url, "_blank");
 		},
-    async goToAntaresContent(antaresReference) {
-      const url = await this.$axios.$get(
-          `/edu-sharing/antaresToken/?antaresReference=${antaresReference}`
-      );
-      window.open(url, "_blank");
-    },
+		async goToAntaresContent(antaresReference) {
+			const url = await this.$axios.$get(
+				`/edu-sharing/antaresToken/?antaresReference=${antaresReference}`
+			);
+			window.open(url, "_blank");
+		},
 		isNotStudent(roles) {
 			return this.role === ""
 				? roles.some((role) => !role.startsWith("student"))
