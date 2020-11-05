@@ -59,13 +59,18 @@ export default {
 <style lang="scss" scoped>
 @import "@styles";
 .tab-icon {
-	margin-right: var(--space-xs-3);
-	font-size: var(--text-md);
+	margin-right: var(--space-xs-4);
+	animation: fadeEffect var(--duration-transition-medium) ease-in-out;
+
+	@include breakpoint(tablet) {
+		margin-right: var(--space-xs-3);
+		font-size: var(--text-md);
+	}
 }
 ul.tabs {
 	display: flex;
-	justify-content: space-between;
-	max-width: 1024px;
+	justify-content: center;
+	max-width: 28rem;
 	padding: 0;
 	margin-bottom: var(--space-md);
 	.li-content {
@@ -96,6 +101,9 @@ ul.tabs {
 			border: none;
 			outline: none;
 		}
+		&.span {
+			animation: fadeEffect var(--duration-transition-medium) ease-in-out;
+		}
 		&.is-active {
 			position: relative;
 			color: var(--color-tertiary);
@@ -103,50 +111,50 @@ ul.tabs {
 			.tab-icon {
 				font-weight: var(--font-weight-bold);
 				color: var(--color-tertiary);
-				transition: var(--duration-transition-medium) ease-in-out;
+				transition: var(--duration-transition-medium) ease-in;
 			}
 			&::after {
 				position: absolute;
-				top: calc(2.2 * (var(--space-md)));
+				top: calc(2.45 * (var(--space-md)));
 				left: 0;
 				width: 100%;
 				height: 2px;
 				content: " ";
 				background: var(--color-tertiary);
-				animation: fadeEffect var(--duration-transition-medium) ease-in-out;
+				box-shadow: 0 0 1px 0 var(--color-tertiary);
+				animation: fadeEffect var(--duration-transition-medium) ease-in;
+			}
+		}
+		&:not(.is-active) {
+			span {
+				display: none;
+
+				@include breakpoint(tablet) {
+					display: block;
+				}
+			}
+		}
+		&:hover:not(.is-active) {
+			color: var(--color-gray-dark);
+			.tab-button {
+				color: var(--color-gray-dark);
 			}
 		}
 	}
-	li:hover:not(.is-active) {
-		color: var(--color-gray-dark);
-		.tab-button {
-			color: var(--color-gray-dark);
-		}
+	&::after {
+		position: absolute;
+		top: calc(4.45 * (var(--space-md)));
+		left: calc(2 * (var(--space-md)));
+		z-index: var(--layer-behind);
+		width: 100vw;
+		height: 2px;
+		content: " ";
+		background: var(--color-gray-light);
+		box-shadow: 0 0 1px 0 var(--color-gray-light);
 	}
-}
 
-@media screen and (max-width: 450px) {
-	ul.tabs {
-		max-width: 450px;
-	}
-	.tab-button span {
-		animation: fadeEffect var(--duration-transition-medium) ease-in-out;
-	}
-	.tab-icon {
-		margin-right: var(--space-xs-4);
-		animation: fadeEffect var(--duration-transition-medium) ease-in-out;
-	}
-	li:not(.is-active) {
-		span {
-			display: none;
-			animation: fadeEffect var(--duration-transition-medium) ease-in-out;
-		}
-	}
-}
-
-@media screen and (max-width: 1112px) and (orientation: landscape) {
-	ul.tabs {
-		max-width: 1023px;
+	@include breakpoint(tablet) {
+		max-width: 64rem;
 	}
 }
 
