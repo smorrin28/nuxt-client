@@ -156,5 +156,9 @@
 	"engines": {
 		"node": ">=12.x.x",
 		"npm": ">=6.x.x"
+	},
+	"story2sketch": {
+		"stories": "all",
+		"output": "dist/great-ui.asketch.json"
 	}
 }
