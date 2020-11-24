@@ -2,7 +2,7 @@ export const actions = {
 	async verifyData({ commit }, payload) {
 		const {
 			url,
-			basisPath,
+			rootPath,
 			searchUser,
 			searchUserPassword,
 			userPath,
@@ -24,7 +24,7 @@ export const actions = {
 
 		const data = {
 			url,
-			rootPath: basisPath,
+			rootPath,
 			searchUser,
 			searchUserPassword,
 			providerOptions: {

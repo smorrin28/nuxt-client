@@ -5,7 +5,6 @@ describe("@components/organisms/LdapConnectionSection", () => {
 	const ldapConfigData = {
 		url: "ldaps://url.u",
 		rootPath: "cn=schueler,ou=rolle",
-		basisPath: "cn=schueler,ou=rolle",
 		searchUser: "cn=schueler,ou=rolle",
 		searchUserPassword: "pass",
 	};
@@ -23,7 +22,7 @@ describe("@components/organisms/LdapConnectionSection", () => {
 			true
 		);
 		expect(
-			wrapper.find("[data-testid=ldapDataConnectionBasisPath]").exists()
+			wrapper.find("[data-testid=ldapDataConnectionRootPath]").exists()
 		).toBe(true);
 		expect(
 			wrapper.find("[data-testid=ldapDataConnectionSearchUser]").exists()
@@ -63,7 +62,6 @@ describe("@components/organisms/LdapConnectionSection", () => {
 				value: {
 					url: "invalid",
 					rootPath: "invalid",
-					basisPath: "invalid",
 					searchUser: "invalid",
 					searchUserPassword: "",
 				},
@@ -85,7 +83,6 @@ describe("@components/organisms/LdapConnectionSection", () => {
 				input: (event) => {
 					ldapConfigDataTestSpecific.url = event.url;
 					ldapConfigDataTestSpecific.rootPath = event.rootPath;
-					ldapConfigDataTestSpecific.basisPath = event.basisPath;
 					ldapConfigDataTestSpecific.searchUser = event.searchUser;
 					ldapConfigDataTestSpecific.searchUserPassword =
 						event.searchUserPassword;
@@ -131,7 +128,6 @@ describe("@components/organisms/LdapConnectionSection", () => {
 		const ldapConfigDataTestSpecific = {
 			url: "invalid",
 			rootPath: "invalid",
-			basisPath: "invalid",
 			searchUser: "invalid",
 			searchUserPassword: "",
 		};
@@ -144,7 +140,6 @@ describe("@components/organisms/LdapConnectionSection", () => {
 				input: (event) => {
 					ldapConfigDataTestSpecific.url = event.url;
 					ldapConfigDataTestSpecific.rootPath = event.rootPath;
-					ldapConfigDataTestSpecific.basisPath = event.basisPath;
 					ldapConfigDataTestSpecific.searchUser = event.searchUser;
 					ldapConfigDataTestSpecific.searchUserPassword =
 						event.searchUserPassword;

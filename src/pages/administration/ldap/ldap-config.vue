@@ -95,7 +95,7 @@ export default {
 			ldapConfigData: {
 				// Connection Section Data
 				url: "ldaps://ldap.schul-cloud.org",
-				basisPath: "dc=schul-cloud,dc=org",
+				rootPath: "dc=schul-cloud,dc=org",
 				searchUser: "cn=ldapadmin,dc=schul-cloud,dc=org",
 				searchUserPassword: "Naivi4Ahghee",
 				// Users Sections Data

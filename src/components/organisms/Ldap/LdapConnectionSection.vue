@@ -17,16 +17,16 @@
 			@update:vmodel="$emit('input', { ...value, url: $event })"
 		/>
 		<base-input
-			data-testid="ldapDataConnectionBasisPath"
-			:vmodel="value.basisPath"
+			data-testid="ldapDataConnectionRootPath"
+			:vmodel="value.rootPath"
 			type="text"
 			class="mt--xl"
 			:label="$t('pages.administration.ldap.connection.basis.path')"
 			:placeholder="$t('pages.administration.ldap.connection.basis.path')"
 			:info="$t('pages.administration.ldap.connection.basis.path.info')"
-			:validation-model="$v.value.basisPath"
+			:validation-model="$v.value.rootPath"
 			:validation-messages="pathSearchValidationMessages"
-			@update:vmodel="$emit('input', { ...value, basisPath: $event })"
+			@update:vmodel="$emit('input', { ...value, rootPath: $event })"
 		/>
 		<base-input
 			data-testid="ldapDataConnectionSearchUser"
@@ -105,7 +105,7 @@ export default {
 		return {
 			value: {
 				url: { required, urlValidationRegex },
-				basisPath: { required, ldapPathValidationRegex },
+				rootPath: { required, ldapPathValidationRegex },
 				searchUser: { required, ldapPathValidationRegex },
 				searchUserPassword: { required },
 			},
