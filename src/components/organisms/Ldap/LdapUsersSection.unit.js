@@ -3,10 +3,10 @@ import LdapUsersSection from "./LdapUsersSection";
 
 describe("@components/organisms/LdapUsersSection", () => {
 	const ldapConfigData = {
-		userPath: "user=path;;user=p",
-		firstName: "givenName",
-		familyName: "sn",
-		email: "mail@de.de",
+		userPathAdditions: "user=path;;user=p",
+		givenName: "givenName",
+		sn: "sn",
+		mail: "mail@de.de",
 		uid: "uid",
 		uuid: "uuid",
 	};
@@ -20,18 +20,14 @@ describe("@components/organisms/LdapUsersSection", () => {
 			},
 		});
 
-		expect(wrapper.find("[data-testid=ldapDataUsersUserPath]").exists()).toBe(
+		expect(
+			wrapper.find("[data-testid=ldapDataUsersUserPathAdditions]").exists()
+		).toBe(true);
+		expect(wrapper.find("[data-testid=ldapDataUsersGivenName]").exists()).toBe(
 			true
 		);
-		expect(wrapper.find("[data-testid=ldapDataUsersFirstName]").exists()).toBe(
-			true
-		);
-		expect(wrapper.find("[data-testid=ldapDataUsersFamilyName]").exists()).toBe(
-			true
-		);
-		expect(wrapper.find("[data-testid=ldapDataUsersEmail]").exists()).toBe(
-			true
-		);
+		expect(wrapper.find("[data-testid=ldapDataUsersSn]").exists()).toBe(true);
+		expect(wrapper.find("[data-testid=ldapDataUsersMail]").exists()).toBe(true);
 		expect(wrapper.find("[data-testid=ldapDataUsersUid]").exists()).toBe(true);
 		expect(wrapper.find("[data-testid=ldapDataUsersUuid]").exists()).toBe(true);
 	});
@@ -62,10 +58,10 @@ describe("@components/organisms/LdapUsersSection", () => {
 			...createComponentMocks({ i18n: true }),
 			propsData: {
 				value: {
-					userPath: "invalid",
-					firstName: "",
-					familyName: "",
-					email: "",
+					userPathAdditions: "invalid",
+					givenName: "",
+					sn: "",
+					mail: "",
 					uid: "",
 					uuid: "",
 				},
@@ -85,29 +81,30 @@ describe("@components/organisms/LdapUsersSection", () => {
 			},
 			listeners: {
 				input: (event) => {
-					ldapConfigDataTestSpecific.userPath = event.userPath;
-					ldapConfigDataTestSpecific.firstName = event.firstName;
-					ldapConfigDataTestSpecific.familyName = event.familyName;
-					ldapConfigDataTestSpecific.email = event.email;
+					ldapConfigDataTestSpecific.userPathAdditions =
+						event.userPathAdditions;
+					ldapConfigDataTestSpecific.givenName = event.givenName;
+					ldapConfigDataTestSpecific.sn = event.sn;
+					ldapConfigDataTestSpecific.mail = event.mail;
 					ldapConfigDataTestSpecific.uid = event.uid;
 					ldapConfigDataTestSpecific.uuid = event.uuid;
 				},
 			},
 		});
 
-		const inputFirstName = wrapper.find(
-			"input[data-testid=ldapDataUsersFirstName]"
+		const inputGivenName = wrapper.find(
+			"input[data-testid=ldapDataUsersGivenName]"
 		);
-		expect(inputFirstName.exists()).toBe(true);
+		expect(inputGivenName.exists()).toBe(true);
 
-		inputFirstName.setValue("");
-		inputFirstName.trigger("blur");
+		inputGivenName.setValue("");
+		inputGivenName.trigger("blur");
 
-		expect(inputFirstName.element.value).toBe("");
+		expect(inputGivenName.element.value).toBe("");
 		expect(wrapper.vm.$v.$invalid).toBe(true);
 		await wrapper.vm.$nextTick();
 		const errorMessageComponent = wrapper.find(
-			"div[data-testid='ldapDataUsersFirstName'] .info.error"
+			"div[data-testid='ldapDataUsersGivenName'] .info.error"
 		);
 		expect(errorMessageComponent.exists()).toBeTrue();
 	});
@@ -133,10 +130,10 @@ describe("@components/organisms/LdapUsersSection", () => {
 
 	it("invalid error message is displayed only after the blur event, even if originally invalid props were passed through", async () => {
 		const ldapConfigDataTestSpecific = {
-			userPath: "invalid",
-			firstName: "",
-			familyName: "",
-			email: "",
+			userPathAdditions: "invalid",
+			givenName: "",
+			sn: "",
+			mail: "",
 			uid: "",
 			uuid: "",
 		};
@@ -147,10 +144,11 @@ describe("@components/organisms/LdapUsersSection", () => {
 			},
 			listeners: {
 				input: (event) => {
-					ldapConfigDataTestSpecific.userPath = event.userPath;
-					ldapConfigDataTestSpecific.firstName = event.firstName;
-					ldapConfigDataTestSpecific.familyName = event.familyName;
-					ldapConfigDataTestSpecific.email = event.email;
+					ldapConfigDataTestSpecific.userPathAdditions =
+						event.userPathAdditions;
+					ldapConfigDataTestSpecific.givenName = event.givenName;
+					ldapConfigDataTestSpecific.sn = event.sn;
+					ldapConfigDataTestSpecific.mail = event.mail;
 					ldapConfigDataTestSpecific.uid = event.uid;
 					ldapConfigDataTestSpecific.uuid = event.uuid;
 				},
@@ -158,24 +156,24 @@ describe("@components/organisms/LdapUsersSection", () => {
 		});
 
 		let errorMessageComponent = wrapper.find(
-			"div[data-testid='ldapDataUsersFirstName'] .info.error"
+			"div[data-testid='ldapDataUsersGivenName'] .info.error"
 		);
 		expect(wrapper.vm.$v.$invalid).toBe(true);
 		expect(errorMessageComponent.exists()).toBeFalse();
 
-		const inputFirstName = wrapper.find(
-			"input[data-testid=ldapDataUsersFirstName]"
+		const inputGivenName = wrapper.find(
+			"input[data-testid=ldapDataUsersGivenName]"
 		);
-		expect(inputFirstName.exists()).toBe(true);
-		expect(inputFirstName.element.value).toBe(
-			ldapConfigDataTestSpecific.firstName
+		expect(inputGivenName.exists()).toBe(true);
+		expect(inputGivenName.element.value).toBe(
+			ldapConfigDataTestSpecific.givenName
 		);
 
-		inputFirstName.trigger("blur"); // without this the error is not displayed
+		inputGivenName.trigger("blur"); // without this the error is not displayed
 
 		await wrapper.vm.$nextTick();
 		errorMessageComponent = wrapper.find(
-			"div[data-testid='ldapDataUsersFirstName'] .info.error"
+			"div[data-testid='ldapDataUsersGivenName'] .info.error"
 		);
 		expect(errorMessageComponent.exists()).toBeTrue();
 	});

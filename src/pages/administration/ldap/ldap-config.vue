@@ -98,11 +98,12 @@ export default {
 				rootPath: "dc=schul-cloud,dc=org",
 				searchUser: "cn=ldapadmin,dc=schul-cloud,dc=org",
 				searchUserPassword: "Naivi4Ahghee",
+				providerOptions: {},
 				// Users Sections Data
-				userPath: "ou=users",
-				firstName: "givenName",
-				familyName: "sn",
-				email: "qweqwe@de.de",
+				userPathAdditions: "ou=users",
+				givenName: "givenName",
+				sn: "sn",
+				mail: "qweqwe@de.de",
 				uid: "uidNumber",
 				uuid: "uid",
 				// Roles Section Data

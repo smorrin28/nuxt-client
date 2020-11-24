@@ -8,53 +8,53 @@
 		</p>
 
 		<base-input
-			data-testid="ldapDataUsersUserPath"
-			:vmodel="value.userPath"
+			data-testid="ldapDataUsersUserPathAdditions"
+			:vmodel="value.userPathAdditions"
 			type="text"
 			class="mt--xl"
 			:label="$t('pages.administration.ldap.users.path.title')"
 			:placeholder="$t('pages.administration.ldap.users.path.title')"
 			:info="$t('pages.administration.ldap.classes.path.info')"
-			:validation-model="$v.value.userPath"
-			:validation-messages="userPathValidationMessage"
-			datatest-id="ldapDataUsersUserPath"
-			@update:vmodel="$emit('input', { ...value, userPath: $event })"
+			:validation-model="$v.value.userPathAdditions"
+			:validation-messages="userPathAdditionsValidationMessage"
+			datatest-id="ldapDataUsersUserPathAdditions"
+			@update:vmodel="$emit('input', { ...value, userPathAdditions: $event })"
 		/>
 		<p class="path-hint">
 			{{ $t("pages.administration.ldap.users.hint") }}
 		</p>
 		<base-input
-			data-testid="ldapDataUsersFirstName"
-			:vmodel="value.firstName"
+			data-testid="ldapDataUsersGivenName"
+			:vmodel="value.givenName"
 			type="text"
 			class="mt--xl"
 			:label="$t('pages.administration.ldap.users.path.firstname')"
-			:validation-model="$v.value.firstName"
+			:validation-model="$v.value.givenName"
 			:validation-messages="usersValidationMessage"
-			datatest-id="ldapDataUsersFirstName"
-			@update:vmodel="$emit('input', { ...value, firstName: $event })"
+			datatest-id="ldapDataUsersGivenName"
+			@update:vmodel="$emit('input', { ...value, givenName: $event })"
 		/>
 		<base-input
-			data-testid="ldapDataUsersFamilyName"
-			:vmodel="value.familyName"
+			data-testid="ldapDataUsersSn"
+			:vmodel="value.sn"
 			type="text"
 			class="mt--xl"
 			:label="$t('pages.administration.ldap.users.path.lastname')"
-			:validation-model="$v.value.familyName"
+			:validation-model="$v.value.sn"
 			:validation-messages="usersValidationMessage"
-			datatest-id="ldapDataUsersFamilyName"
-			@update:vmodel="$emit('input', { ...value, familyName: $event })"
+			datatest-id="ldapDataUsersSn"
+			@update:vmodel="$emit('input', { ...value, sn: $event })"
 		/>
 		<base-input
-			data-testid="ldapDataUsersEmail"
-			:vmodel="value.email"
+			data-testid="ldapDataUsersMail"
+			:vmodel="value.mail"
 			type="text"
 			class="mt--xl"
 			:label="$t('pages.administration.ldap.users.path.email')"
-			:validation-model="$v.value.email"
-			:validation-messages="emailValidationMessages"
-			datatest-id="ldapDataUsersEmail"
-			@update:vmodel="$emit('input', { ...value, email: $event })"
+			:validation-model="$v.value.mail"
+			:validation-messages="mailValidationMessages"
+			datatest-id="ldapDataUsersMail"
+			@update:vmodel="$emit('input', { ...value, mail: $event })"
 		/>
 		<base-input
 			data-testid="ldapDataUsersUid"
@@ -104,14 +104,14 @@ export default {
 			usersValidationMessage: [
 				{ key: "required", message: this.$t("common.validation.required") },
 			],
-			userPathValidationMessage: [
+			userPathAdditionsValidationMessage: [
 				{
 					key: "ldapPathValidationRegex",
 					message: this.$t("pages.administration.ldapEdit.validation.path"),
 				},
 				{ key: "required", message: this.$t("common.validation.required") },
 			],
-			emailValidationMessages: [
+			mailValidationMessages: [
 				{ key: "required", message: this.$t("common.validation.required") },
 				{ key: "email", message: this.$t("common.validation.email") },
 			],
@@ -126,10 +126,10 @@ export default {
 	validations() {
 		return {
 			value: {
-				userPath: { required, ldapPathValidationRegex },
-				firstName: { required },
-				familyName: { required },
-				email: { required, email },
+				userPathAdditions: { required, ldapPathValidationRegex },
+				givenName: { required },
+				sn: { required },
+				mail: { required, email },
 				uid: { required },
 				uuid: { required },
 			},
