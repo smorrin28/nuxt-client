@@ -107,12 +107,12 @@ export default {
 				uid: "uidNumber",
 				uuid: "uid",
 				// Roles Section Data
-				groupOption: "ldap_group",
-				member: "description",
-				student: "cn=student,ou=roles,ou=groups,dc=schul-cloud,dc=org",
-				teacher: "cn=teacher,ou=roles,ou=groups,dc=schul-cloud,dc=org",
-				admin: "cn=admin,ou=roles,ou=groups,dc=schul-cloud,dc=org",
-				user: "no-sc",
+				roleType: "ldap_group",
+				role: "description",
+				roleStudent: "cn=student,ou=roles,ou=groups,dc=schul-cloud,dc=org",
+				roleTeacher: "cn=teacher,ou=roles,ou=groups,dc=schul-cloud,dc=org",
+				roleAdmin: "cn=admin,ou=roles,ou=groups,dc=schul-cloud,dc=org",
+				roleNoSc: "no-sc",
 				// Classes Section Data
 				classPath: "ou=classes,ou=groups",
 				nameAttribute: "description",

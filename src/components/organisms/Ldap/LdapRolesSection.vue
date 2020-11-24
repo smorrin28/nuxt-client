@@ -12,18 +12,18 @@
 		</p>
 		<div role="group" class="section-sub-header">
 			<base-input
-				:vmodel="value.groupOption"
+				:vmodel="value.roleType"
 				type="radio"
 				:label="
 					this.$t('pages.administration.ldapEdit.roles.labels.radio.ldapGroup')
 				"
 				name="group"
-				style="margin-right: var(--space-sm)"
+				style="margin-right: var(--space-sm);"
 				value="ldap_group"
-				@update:vmodel="$emit('input', { ...value, groupOption: $event })"
+				@update:vmodel="$emit('input', { ...value, roleType: $event })"
 			/>
 			<base-input
-				:vmodel="value.groupOption"
+				:vmodel="value.roleType"
 				type="radio"
 				:label="
 					this.$t(
@@ -32,9 +32,9 @@
 				"
 				name="group"
 				value="user_attribute"
-				@update:vmodel="$emit('input', { ...value, groupOption: $event })"
+				@update:vmodel="$emit('input', { ...value, roleType: $event })"
 			/>
-			<p class="text-sm" style="margin-top: var(--space-xs)">
+			<p class="text-sm" style="margin-top: var(--space-xs);">
 				{{
 					this.$t(
 						"pages.administration.ldapEdit.roles.labels.radio.description"
@@ -43,21 +43,21 @@
 			</p>
 		</div>
 		<base-input
-			:vmodel="value.member"
-			:disabled="value.groupOption === 'ldap_group'"
+			:vmodel="value.role"
+			:disabled="value.roleType === 'ldap_group'"
 			type="text"
-			:label="this.$t('pages.administration.ldapEdit.roles.labels.member')"
+			:label="this.$t('pages.administration.ldapEdit.roles.labels.role')"
 			:placeholder="
-				this.$t('pages.administration.ldapEdit.roles.placeholder.member')
+				this.$t('pages.administration.ldapEdit.roles.placeholder.role')
 			"
-			style="margin-bottom: var(--space-xl)"
-			:validation-model="$v.value.member"
-			:validation-messages="memberValidationMessages"
-			data-testid="ldapDataRolesMember"
-			@update:vmodel="$emit('input', { ...value, member: $event })"
+			style="margin-bottom: var(--space-xl);"
+			:validation-model="$v.value.role"
+			:validation-messages="roleValidationMessages"
+			data-testid="ldapDataRolesRole"
+			@update:vmodel="$emit('input', { ...value, role: $event })"
 		/>
 		<base-input
-			:vmodel="value.student"
+			:vmodel="value.roleStudent"
 			type="text"
 			v-bind="$attrs"
 			:label="this.$t('pages.administration.ldapEdit.roles.labels.student')"
@@ -65,49 +65,49 @@
 				this.$t('pages.administration.ldapEdit.roles.placeholder.student')
 			"
 			:info="this.$t('pages.administration.ldapEdit.roles.info.student')"
-			:validation-model="$v.value.student"
+			:validation-model="$v.value.roleStudent"
 			:validation-messages="rolesValidationMessages"
-			data-testid="ldapDataRolesStudent"
-			@update:vmodel="$emit('input', { ...value, student: $event })"
+			data-testid="ldapDataRolesRoleStudent"
+			@update:vmodel="$emit('input', { ...value, roleStudent: $event })"
 		/>
 		<base-input
-			:vmodel="value.teacher"
+			:vmodel="value.roleTeacher"
 			type="text"
 			:label="this.$t('pages.administration.ldapEdit.roles.labels.teacher')"
 			:placeholder="
 				this.$t('pages.administration.ldapEdit.roles.placeholder.teacher')
 			"
 			:info="this.$t('pages.administration.ldapEdit.roles.info.teacher')"
-			:validation-model="$v.value.teacher"
+			:validation-model="$v.value.roleTeacher"
 			:validation-messages="rolesValidationMessages"
-			data-testid="ldapDataRolesTeacher"
-			@update:vmodel="$emit('input', { ...value, teacher: $event })"
+			data-testid="ldapDataRolesRoleTeacher"
+			@update:vmodel="$emit('input', { ...value, roleTeacher: $event })"
 		/>
 		<base-input
-			:vmodel="value.admin"
+			:vmodel="value.roleAdmin"
 			type="text"
 			:label="this.$t('pages.administration.ldapEdit.roles.labels.admin')"
 			:placeholder="
 				this.$t('pages.administration.ldapEdit.roles.placeholder.admin')
 			"
 			:info="this.$t('pages.administration.ldapEdit.roles.info.admin')"
-			:validation-model="$v.value.admin"
+			:validation-model="$v.value.roleAdmin"
 			:validation-messages="rolesValidationMessages"
-			data-testid="ldapDataRolesAdmin"
-			@update:vmodel="$emit('input', { ...value, admin: $event })"
+			data-testid="ldapDataRolesRoleAdmin"
+			@update:vmodel="$emit('input', { ...value, roleAdmin: $event })"
 		/>
 		<base-input
-			:vmodel="value.user"
+			:vmodel="value.roleNoSc"
 			type="text"
 			:label="this.$t('pages.administration.ldapEdit.roles.labels.user')"
 			:placeholder="
 				this.$t('pages.administration.ldapEdit.roles.placeholder.user')
 			"
 			:info="this.$t('pages.administration.ldapEdit.roles.info.user')"
-			:validation-model="$v.value.user"
+			:validation-model="$v.value.roleNoSc"
 			:validation-messages="rolesValidationMessages"
-			data-testid="ldapDataRolesUser"
-			@update:vmodel="$emit('input', { ...value, user: $event })"
+			data-testid="ldapDataRolesRoleSc"
+			@update:vmodel="$emit('input', { ...value, roleNoSc: $event })"
 		/>
 	</div>
 </template>
@@ -130,7 +130,7 @@ export default {
 	},
 	data() {
 		return {
-			memberValidationMessages: [
+			roleValidationMessages: [
 				{ key: "required", message: this.$t("common.validation.required") },
 			],
 			rolesValidationMessages: [
@@ -142,8 +142,8 @@ export default {
 		};
 	},
 	computed: {
-		groupOption() {
-			return this.value.groupOption;
+		roleType() {
+			return this.value.roleType;
 		},
 	},
 	watch: {
@@ -151,19 +151,19 @@ export default {
 			this.$v.$touch();
 			this.$emit("update:errors", this.$v.$invalid, "roles");
 		},
-		groupOption: function () {
+		roleType: function () {
 			this.$emit("update:errors", this.$v.$invalid, "roles");
 		},
 	},
 	validations() {
-		if (this.value.groupOption !== "ldap_group") {
+		if (this.value.roleType !== "ldap_group") {
 			return {
 				value: {
-					member: { required },
-					student: { ldapPathValidationRegex },
-					teacher: { ldapPathValidationRegex },
-					admin: { ldapPathValidationRegex },
-					user: { ldapPathValidationRegex },
+					role: { required },
+					roleStudent: { ldapPathValidationRegex },
+					roleTeacher: { ldapPathValidationRegex },
+					roleAdmin: { ldapPathValidationRegex },
+					roleNoSc: { ldapPathValidationRegex },
 				},
 			};
 		}

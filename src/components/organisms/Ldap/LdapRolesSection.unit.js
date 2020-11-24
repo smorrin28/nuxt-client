@@ -3,12 +3,12 @@ import LdapRolesSection from "./LdapRolesSection";
 
 describe("@components/organisms/LdapRolesSection", () => {
 	const ldapConfigData = {
-		groupOption: "ldap_group",
-		member: "description",
-		student: "cn=schueler,ou=rolle",
-		teacher: "cn=lehrer,ou=rolle",
-		admin: "cn=admin,ou=rolle",
-		user: "cn=ehemalige,ou=rolle",
+		roleType: "ldap_group",
+		role: "description",
+		roleStudent: "cn=schueler,ou=rolle",
+		roleTeacher: "cn=lehrer,ou=rolle",
+		roleAdmin: "cn=admin,ou=rolle",
+		roleNoSc: "cn=ehemalige,ou=rolle",
 	};
 	it(...isValidComponent(LdapRolesSection));
 
@@ -21,27 +21,27 @@ describe("@components/organisms/LdapRolesSection", () => {
 		});
 
 		expect(wrapper.find(".section-sub-header").exists()).toBe(true);
-		expect(wrapper.find("[data-testid=ldapDataRolesMember]").exists()).toBe(
+		expect(wrapper.find("[data-testid=ldapDataRolesRole]").exists()).toBe(true);
+		expect(
+			wrapper.find("[data-testid=ldapDataRolesRoleStudent]").exists()
+		).toBe(true);
+		expect(
+			wrapper.find("[data-testid=ldapDataRolesRoleTeacher]").exists()
+		).toBe(true);
+		expect(wrapper.find("[data-testid=ldapDataRolesRoleAdmin]").exists()).toBe(
 			true
 		);
-		expect(wrapper.find("[data-testid=ldapDataRolesStudent]").exists()).toBe(
+		expect(wrapper.find("[data-testid=ldapDataRolesRoleSc]").exists()).toBe(
 			true
 		);
-		expect(wrapper.find("[data-testid=ldapDataRolesTeacher]").exists()).toBe(
-			true
-		);
-		expect(wrapper.find("[data-testid=ldapDataRolesAdmin]").exists()).toBe(
-			true
-		);
-		expect(wrapper.find("[data-testid=ldapDataRolesUser]").exists()).toBe(true);
 	});
 
 	it("loads the validator", async () => {
 		const wrapper = mount(LdapRolesSection, {
 			...createComponentMocks({ i18n: true }),
 			propsData: {
-				// validations are only active when groupOption !== ldap_group
-				value: { ...ldapConfigData, groupOption: "not LDAP_group" },
+				// validations are only active when roleType !== ldap_group
+				value: { ...ldapConfigData, roleType: "not LDAP_group" },
 			},
 		});
 		expect(wrapper.vm.$v).not.toBeUndefined();
@@ -51,8 +51,8 @@ describe("@components/organisms/LdapRolesSection", () => {
 		const wrapper = mount(LdapRolesSection, {
 			...createComponentMocks({ i18n: true }),
 			propsData: {
-				// validations are only active when groupOption !== ldap_group
-				value: { ...ldapConfigData, groupOption: "not LDAP_group" },
+				// validations are only active when roleType !== ldap_group
+				value: { ...ldapConfigData, roleType: "not LDAP_group" },
 			},
 		});
 		// default props values are valid so expect this assertion to succeed
@@ -64,13 +64,13 @@ describe("@components/organisms/LdapRolesSection", () => {
 			...createComponentMocks({ i18n: true }),
 			propsData: {
 				value: {
-					// validations are only active when groupOption !== ldap_group
-					groupOption: "not ldap group",
-					member: "",
-					student: "invalid",
-					teacher: "invalid",
-					admin: "invalid",
-					user: "invalid",
+					// validations are only active when roleType !== ldap_group
+					roleType: "not ldap group",
+					role: "",
+					roleStudent: "invalid",
+					roleTeacher: "invalid",
+					roleAdmin: "invalid",
+					roleNoSc: "invalid",
 				},
 			},
 		});
@@ -80,8 +80,8 @@ describe("@components/organisms/LdapRolesSection", () => {
 	it("invalid validation is true when any of the input values are invalid", async () => {
 		const ldapConfigDataTestSpecific = {
 			...ldapConfigData,
-			// validations are only active when groupOption !== ldap_group
-			groupOption: "not ldap group",
+			// validations are only active when roleType !== ldap_group
+			roleType: "not ldap group",
 		};
 		const wrapper = mount(LdapRolesSection, {
 			...createComponentMocks({ i18n: true }),
@@ -90,26 +90,26 @@ describe("@components/organisms/LdapRolesSection", () => {
 			},
 			listeners: {
 				input: (event) => {
-					ldapConfigDataTestSpecific.member = event.member;
-					ldapConfigDataTestSpecific.student = event.student;
-					ldapConfigDataTestSpecific.teacher = event.teacher;
-					ldapConfigDataTestSpecific.admin = event.admin;
-					ldapConfigDataTestSpecific.user = event.user;
+					ldapConfigDataTestSpecific.role = event.role;
+					ldapConfigDataTestSpecific.roleStudent = event.roleStudent;
+					ldapConfigDataTestSpecific.roleTeacher = event.roleTeacher;
+					ldapConfigDataTestSpecific.roleAdmin = event.roleAdmin;
+					ldapConfigDataTestSpecific.roleNoSc = event.roleNoSc;
 				},
 			},
 		});
 
-		const inputMember = wrapper.find("input[data-testid=ldapDataRolesMember]");
-		expect(inputMember.exists()).toBe(true);
+		const inputRole = wrapper.find("input[data-testid=ldapDataRolesRole]");
+		expect(inputRole.exists()).toBe(true);
 
-		inputMember.setValue("");
-		inputMember.trigger("blur");
+		inputRole.setValue("");
+		inputRole.trigger("blur");
 
-		expect(inputMember.element.value).toBe("");
+		expect(inputRole.element.value).toBe("");
 		expect(wrapper.vm.$v.$invalid).toBe(true);
 		await wrapper.vm.$nextTick();
 		const errorMessageComponent = wrapper.find(
-			"div[data-testid='ldapDataRolesMember'] .info.error"
+			"div[data-testid='ldapDataRolesRole'] .info.error"
 		);
 		expect(errorMessageComponent.exists()).toBeTrue();
 	});
@@ -135,13 +135,13 @@ describe("@components/organisms/LdapRolesSection", () => {
 
 	it("invalid error message is displayed only after the blur event, even if originally invalid props were passed through", async () => {
 		const ldapConfigDataTestSpecific = {
-			// validations are only active when groupOption !== ldap_group
-			groupOption: "not ldap group",
-			member: "",
-			student: "invalid",
-			teacher: "invalid",
-			admin: "invalid",
-			user: "invalid",
+			// validations are only active when roleType !== ldap_group
+			roleType: "not ldap group",
+			role: "",
+			roleStudent: "invalid",
+			roleTeacher: "invalid",
+			roleAdmin: "invalid",
+			roleNoSc: "invalid",
 		};
 		const wrapper = mount(LdapRolesSection, {
 			...createComponentMocks({ i18n: true }),
@@ -150,30 +150,30 @@ describe("@components/organisms/LdapRolesSection", () => {
 			},
 			listeners: {
 				input: (event) => {
-					ldapConfigDataTestSpecific.member = event.member;
-					ldapConfigDataTestSpecific.student = event.student;
-					ldapConfigDataTestSpecific.teacher = event.teacher;
-					ldapConfigDataTestSpecific.admin = event.admin;
-					ldapConfigDataTestSpecific.user = event.user;
+					ldapConfigDataTestSpecific.role = event.role;
+					ldapConfigDataTestSpecific.roleStudent = event.roleStudent;
+					ldapConfigDataTestSpecific.roleTeacher = event.roleTeacher;
+					ldapConfigDataTestSpecific.roleAdmin = event.roleAdmin;
+					ldapConfigDataTestSpecific.roleNoSc = event.roleNoSc;
 				},
 			},
 		});
 
 		let errorMessageComponent = wrapper.find(
-			"div[data-testid='ldapDataRolesMember'] .info.error"
+			"div[data-testid='ldapDataRolesRole'] .info.error"
 		);
 		expect(wrapper.vm.$v.$invalid).toBe(true);
 		expect(errorMessageComponent.exists()).toBeFalse();
 
-		const inputMember = wrapper.find("input[data-testid=ldapDataRolesMember]");
-		expect(inputMember.exists()).toBe(true);
-		expect(inputMember.element.value).toBe(ldapConfigDataTestSpecific.member);
+		const inputRole = wrapper.find("input[data-testid=ldapDataRolesRole]");
+		expect(inputRole.exists()).toBe(true);
+		expect(inputRole.element.value).toBe(ldapConfigDataTestSpecific.role);
 
-		inputMember.trigger("blur"); // without this the error is not displayed
+		inputRole.trigger("blur"); // without this the error is not displayed
 
 		await wrapper.vm.$nextTick();
 		errorMessageComponent = wrapper.find(
-			"div[data-testid='ldapDataRolesMember'] .info.error"
+			"div[data-testid='ldapDataRolesRole'] .info.error"
 		);
 		expect(errorMessageComponent.exists()).toBeTrue();
 	});
