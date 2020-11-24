@@ -3,9 +3,9 @@ import LdapClassesSection from "./LdapClassesSection";
 
 describe("@components/organisms/LdapClassesSection", () => {
 	const ldapConfigData = {
-		classPath: "class=path",
-		nameAttribute: "description",
-		participantAttribute: "member",
+		classPathAdditions: "class=path",
+		description: "description",
+		uniqueMember: "member",
 	};
 	it(...isValidComponent(LdapClassesSection));
 
@@ -21,12 +21,10 @@ describe("@components/organisms/LdapClassesSection", () => {
 			true
 		);
 		expect(
-			wrapper.find("[data-testid=ldapDataClassesNameAttribute]").exists()
+			wrapper.find("[data-testid=ldapDataClassesDescription]").exists()
 		).toBe(true);
 		expect(
-			wrapper
-				.find("[data-testid=ldapDataClassesNameparticipantAttribute]")
-				.exists()
+			wrapper.find("[data-testid=ldapDataClassesNameuniqueMember]").exists()
 		).toBe(true);
 	});
 
@@ -60,9 +58,9 @@ describe("@components/organisms/LdapClassesSection", () => {
 			...createComponentMocks({ i18n: true }),
 			propsData: {
 				value: {
-					classPath: "invalid",
-					nameAttribute: "",
-					participantAttribute: "",
+					classPathAdditions: "invalid",
+					description: "",
+					uniqueMember: "",
 				},
 			},
 		});
@@ -79,10 +77,10 @@ describe("@components/organisms/LdapClassesSection", () => {
 			},
 			listeners: {
 				input: (event) => {
-					ldapConfigDataTestSpecific.classPath = event.classPath;
-					ldapConfigDataTestSpecific.nameAttribute = event.nameAttribute;
-					ldapConfigDataTestSpecific.participantAttribute =
-						event.participantAttribute;
+					ldapConfigDataTestSpecific.classPathAdditions =
+						event.classPathAdditions;
+					ldapConfigDataTestSpecific.description = event.description;
+					ldapConfigDataTestSpecific.uniqueMember = event.uniqueMember;
 				},
 			},
 		});
@@ -125,9 +123,9 @@ describe("@components/organisms/LdapClassesSection", () => {
 
 	it("invalid error message is displayed only after the blur event, even if originally invalid props were passed through", async () => {
 		const ldapConfigDataTestSpecific = {
-			classPath: "invalid",
-			nameAttribute: "",
-			participantAttribute: "",
+			classPathAdditions: "invalid",
+			description: "",
+			uniqueMember: "",
 		};
 		const wrapper = mount(LdapClassesSection, {
 			...createComponentMocks({ i18n: true }),
@@ -136,10 +134,10 @@ describe("@components/organisms/LdapClassesSection", () => {
 			},
 			listeners: {
 				input: (event) => {
-					ldapConfigDataTestSpecific.classPath = event.classPath;
-					ldapConfigDataTestSpecific.nameAttribute = event.nameAttribute;
-					ldapConfigDataTestSpecific.participantAttribute =
-						event.participantAttribute;
+					ldapConfigDataTestSpecific.classPathAdditions =
+						event.classPathAdditions;
+					ldapConfigDataTestSpecific.description = event.description;
+					ldapConfigDataTestSpecific.uniqueMember = event.uniqueMember;
 				},
 			},
 		});
@@ -154,7 +152,9 @@ describe("@components/organisms/LdapClassesSection", () => {
 
 		const inputPath = wrapper.find("input[data-testid=ldapDataClassesPath]");
 		expect(inputPath.exists()).toBe(true);
-		expect(inputPath.element.value).toBe(ldapConfigDataTestSpecific.classPath);
+		expect(inputPath.element.value).toBe(
+			ldapConfigDataTestSpecific.classPathAdditions
+		);
 
 		inputPath.trigger("blur"); // without this the error is not displayed
 

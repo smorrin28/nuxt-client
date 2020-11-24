@@ -114,9 +114,9 @@ export default {
 				roleAdmin: "cn=admin,ou=roles,ou=groups,dc=schul-cloud,dc=org",
 				roleNoSc: "no-sc",
 				// Classes Section Data
-				classPath: "ou=classes,ou=groups",
-				nameAttribute: "description",
-				participantAttribute: "member",
+				classPathAdditions: "ou=classes,ou=groups",
+				description: "description",
+				uniqueMember: "member",
 			},
 			isInvalidData: {
 				connection: null,

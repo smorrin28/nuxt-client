@@ -15,46 +15,44 @@
 		</p>
 		<base-input
 			data-testid="ldapDataClassesPath"
-			:vmodel="value.classPath"
+			:vmodel="value.classPathAdditions"
 			:disabled="unchecked === false"
 			type="text"
 			class="mt--xl"
 			:placeholder="$t('pages.administration.ldap.classes.path.title')"
 			:label="$t('pages.administration.ldap.classes.path.title')"
 			:info="$t('pages.administration.ldap.classes.path.info')"
-			:validation-model="$v.value.classPath"
-			:validation-messages="classPathValidationMessage"
-			datatest-id="ldapDataClassesclassPath"
-			@update:vmodel="$emit('input', { ...value, classPath: $event })"
+			:validation-model="$v.value.classPathAdditions"
+			:validation-messages="classPathAdditionsValidationMessage"
+			datatest-id="ldapDataClassesclassPathAdditions"
+			@update:vmodel="$emit('input', { ...value, classPathAdditions: $event })"
 		/>
 		<p class="title-class">
 			{{ $t("pages.administration.ldap.users.hint") }}
 		</p>
 		<base-input
-			data-testid="ldapDataClassesNameAttribute"
-			:vmodel="value.nameAttribute"
+			data-testid="ldapDataClassesDescription"
+			:vmodel="value.description"
 			:disabled="unchecked === false"
 			type="text"
 			class="mt--xl"
 			:label="$t('pages.administration.ldap.classes.notice.title')"
-			:validation-model="$v.value.nameAttribute"
+			:validation-model="$v.value.description"
 			:validation-messages="classesValidationMessage"
-			datatest-id="ldapDataClassesNameAttribute"
-			@update:vmodel="$emit('input', { ...value, nameAttribute: $event })"
+			datatest-id="ldapDataClassesDescription"
+			@update:vmodel="$emit('input', { ...value, description: $event })"
 		/>
 		<base-input
-			data-testid="ldapDataClassesNameparticipantAttribute"
-			:vmodel="value.participantAttribute"
+			data-testid="ldapDataClassesNameuniqueMember"
+			:vmodel="value.uniqueMember"
 			:disabled="unchecked === false"
 			type="text"
 			class="mt--xl"
 			:label="$t('pages.administration.ldap.classes.participant.title')"
-			:validation-model="$v.value.nameAttribute"
+			:validation-model="$v.value.description"
 			:validation-messages="classesValidationMessage"
 			datatest-id="ldapDataClassesParticipantsAttribute"
-			@update:vmodel="
-				$emit('input', { ...value, participantAttribute: $event })
-			"
+			@update:vmodel="$emit('input', { ...value, uniqueMember: $event })"
 		/>
 	</div>
 </template>
@@ -82,7 +80,7 @@ export default {
 			classesValidationMessage: [
 				{ key: "required", message: this.$t("common.validation.required") },
 			],
-			classPathValidationMessage: [
+			classPathAdditionsValidationMessage: [
 				{
 					key: "ldapPathValidationRegex",
 					message: this.$t("pages.administration.ldapEdit.validation.path"),
@@ -104,9 +102,9 @@ export default {
 		if (this.unchecked === true) {
 			return {
 				value: {
-					classPath: { required, ldapPathValidationRegex },
-					nameAttribute: { required },
-					participantAttribute: { required },
+					classPathAdditions: { required, ldapPathValidationRegex },
+					description: { required },
+					uniqueMember: { required },
 				},
 			};
 		}

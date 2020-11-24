@@ -17,9 +17,9 @@ export const actions = {
 			roleTeacher,
 			roleAdmin,
 			roleNoSc,
-			classPath,
-			nameAttribute,
-			participantAttribute,
+			classPathAdditions,
+			description,
+			uniqueMember,
 		} = payload;
 
 		const data = {
@@ -29,7 +29,7 @@ export const actions = {
 			searchUserPassword,
 			providerOptions: {
 				userPathAdditionsAdditions: userPathAdditions,
-				classPathAdditions: classPath,
+				classPathAdditionsAdditions: classPathAdditions,
 				roleType: roleType,
 				userAttributeNameMapping: {
 					givenName: givenName,
@@ -46,8 +46,8 @@ export const actions = {
 					roleNoSc: roleNoSc,
 				},
 				classAttributeNameMapping: {
-					description: nameAttribute,
-					uniqueRole: participantAttribute,
+					description: description,
+					uniqueRole: uniqueMember,
 				},
 			},
 		};
