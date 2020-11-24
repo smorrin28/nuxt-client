@@ -18,7 +18,7 @@
 					this.$t('pages.administration.ldapEdit.roles.labels.radio.ldapGroup')
 				"
 				name="group"
-				style="margin-right: var(--space-sm);"
+				style="margin-right: var(--space-sm)"
 				value="ldap_group"
 				@update:vmodel="$emit('input', { ...value, roleType: $event })"
 			/>
@@ -34,7 +34,7 @@
 				value="user_attribute"
 				@update:vmodel="$emit('input', { ...value, roleType: $event })"
 			/>
-			<p class="text-sm" style="margin-top: var(--space-xs);">
+			<p class="text-sm" style="margin-top: var(--space-xs)">
 				{{
 					this.$t(
 						"pages.administration.ldapEdit.roles.labels.radio.description"
@@ -50,7 +50,7 @@
 			:placeholder="
 				this.$t('pages.administration.ldapEdit.roles.placeholder.role')
 			"
-			style="margin-bottom: var(--space-xl);"
+			style="margin-bottom: var(--space-xl)"
 			:validation-model="$v.value.role"
 			:validation-messages="roleValidationMessages"
 			data-testid="ldapDataRolesRole"
