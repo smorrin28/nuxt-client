@@ -1,6 +1,6 @@
 # Upload file to wallet
 
-(see also: [Documentation](https://github.com/idas-solutions/connector-documentation-dc/blob/master/Connector_Integration_Guide.md))
+Detailed Overview: [Documentation](https://github.com/idas-solutions/connector-documentation-dc/blob/master/Connector_Integration_Guide.md)
 
 1. POST /RelationshipTemplates - store templateID
 1. POST /RelationshipTemplates/{templateID}/Token - store tokenReference
