@@ -34,6 +34,7 @@ const routes = [
 	// `^/news/${mongoId}/edit`,
 	`^/news/new`,
 	`^/nuxtversion/?$`,
+	`^/wallet/?$`,
 	// `^/courses/?$`,
 ];
 if (process.env.LERNSTORE_MODE === "EDUSHARING") {
