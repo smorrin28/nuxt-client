@@ -5,7 +5,7 @@
 			><base-icon source="material" icon="add" />Wallet verbinden</base-button
 		>
 		<div v-if="qrcode">
-			<img :src="qrcode" />
+			<img :src="qrcode" class="qrcode"/>
 		</div>
 	</div>
 </template>
@@ -32,3 +32,13 @@ export default {
 	},
 };
 </script>
+
+<style lang="scss" scoped>
+@import "@styles";
+
+.qrcode{
+	/* stylelint-disable-next-line sh-waqar/declaration-use-variable */
+	padding-top: 30px;
+}
+
+</style>
