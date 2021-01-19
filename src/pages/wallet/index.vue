@@ -7,6 +7,15 @@
 		<div v-if="qrcode">
 			<img :src="qrcode" class="qrcode" />
 		</div>
+    <base-button design="success" @click="acceptRequest"
+      ><base-icon source="material" icon="check" />Anfrage annehmen</base-button
+    >
+    <div v-if="request">
+      {{ request }}
+    </div>
+    <base-button design="primary outline" @click="uploadDocument"
+      ><base-icon source="material" icon="ic_default" />Dokument hochladen</base-button
+    >
 	</div>
 </template>
 
@@ -16,6 +25,7 @@ export default {
 	data() {
 		return {
 			qrcode: null,
+      request: null
 		};
 	},
 	methods: {
@@ -24,6 +34,14 @@ export default {
 				"data:image/png;base64," +
 				(await this.$store.dispatch("wallet/create"));
 		},
+
+    async acceptRequest() {
+		  this.request = await this.$store.dispatch("wallet/update");
+    },
+
+    async uploadDocument() {
+
+    }
 	},
 	head() {
 		return {
