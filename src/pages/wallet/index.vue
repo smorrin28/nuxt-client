@@ -7,13 +7,11 @@
 		<div v-if="qrcode">
 			<img :src="qrcode" class="qrcode" />
 		</div>
-		<base-button design="success" @click="acceptRequest"
+		<base-button v-if="templateID" design="success" @click="acceptRequest"
 			><base-icon source="material" icon="check" />Anfrage annehmen</base-button
 		>
-		<div v-if="request">
-			{{ request }}
-		</div>
-		<base-button design="primary outline" @click="uploadDocument"
+    <input v-if="relationshipID" type="file" @change="saveFile">
+		<base-button v-if="file" design="primary outline" @click="uploadDocument"
 			><base-icon source="material" icon="ic_default" />Dokument
 			hochladen</base-button
 		>
@@ -25,22 +23,54 @@ export default {
 	async fetch() {},
 	data() {
 		return {
+		  templateID: null,
 			qrcode: null,
-			request: null,
+			relationshipID: null,
+      message: null,
+      file: null
 		};
 	},
 	methods: {
 		async connectWallet() {
+		  const relationshipTemplate = await this.$store.dispatch("wallet/create");
+
+		  this.templateID = relationshipTemplate.templateID;
 			this.qrcode =
-				"data:image/png;base64," +
-				(await this.$store.dispatch("wallet/create"));
+				"data:image/png;base64," + relationshipTemplate.qrcode;
+
+			console.log(this.templateID)
 		},
 
 		async acceptRequest() {
-			this.request = await this.$store.dispatch("wallet/update");
+			this.relationshipID = await this.$store.dispatch("wallet/update", [
+        null,
+        {
+          templateID: this.templateID
+        }
+      ]);
+
+			console.log(this.relationshipID)
 		},
 
-		async uploadDocument() {},
+    saveFile(event) {
+		  this.file = event.target.files[0]
+      console.log(this.file)
+    },
+
+		async uploadDocument() {
+		  //TODO: multipart/form-data has to be used
+		  this.message = await this.$store.dispatch("wallet/patch", [
+        null,
+        {
+          relationshipID: this.relationshipID,
+          title: "Sprachzertifikat",
+          description: "B1-Zertifikat DAAD",
+          file: this.file
+        }
+      ])
+
+      console.log(this.message)
+    },
 	},
 	head() {
 		return {
