@@ -16,6 +16,8 @@ const module = mergeDeep(base, {
 			form.append('description', payload.description);
 			form.append('file', payload.file);
 
+			console.log(form);
+
 			return this.$axios.$patch("/wallet", form, {
 				headers: {
 					"Content-Type": "multipart/form-data"
