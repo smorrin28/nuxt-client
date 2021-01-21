@@ -10,13 +10,13 @@
 		<base-button v-if="templateID" design="success" @click="acceptRequest"
 			><base-icon source="material" icon="check" />Anfrage annehmen</base-button
 		>
-    <div v-if="relationshipId">
-      <input type="file" @change="saveFile" />
-      <base-button v-if="file" design="primary outline" @click="uploadDocument"
-      ><base-icon source="material" icon="ic_default" />Dokument
-        hochladen</base-button
-      >
-    </div>
+		<div v-if="relationshipId">
+			<input type="file" @change="saveFile" />
+			<base-button v-if="file" design="primary outline" @click="uploadDocument"
+				><base-icon source="material" icon="ic_default" />Dokument
+				hochladen</base-button
+			>
+		</div>
 	</div>
 </template>
 
@@ -59,13 +59,12 @@ export default {
 		},
 
 		async uploadDocument() {
-			this.message = await this.$store.dispatch("wallet/sendFile",
-				{
-					relationshipId: this.relationshipId,
-					title: "Sprachzertifikat",
-					description: "B1-Zertifikat DAAD",
-					file: this.file,
-				});
+			this.message = await this.$store.dispatch("wallet/sendFile", {
+				relationshipId: this.relationshipId,
+				title: "Sprachzertifikat",
+				description: "B1-Zertifikat DAAD",
+				file: this.file,
+			});
 
 			console.log(this.message);
 		},

@@ -4,24 +4,24 @@ const base = serviceTemplate("wallet");
 
 const module = mergeDeep(base, {
 	actions: {
-		sendFile (ctx, payload = {}) {
+		sendFile(ctx, payload = {}) {
 			console.log(ctx);
 			console.log(payload);
 			// TODO: PATCH /wallet isn't the final solution (POST /wallet/file or something like that would be better)
 
 			const form = new FormData();
 
-			form.append('relationshipId', payload.relationshipId);
-			form.append('title', payload.title);
-			form.append('description', payload.description);
-			form.append('file', payload.file);
+			form.append("relationshipId", payload.relationshipId);
+			form.append("title", payload.title);
+			form.append("description", payload.description);
+			form.append("file", payload.file);
 
 			console.log(form);
 
 			return this.$axios.$patch("/wallet", form, {
 				headers: {
-					"Content-Type": "multipart/form-data"
-				}
+					"Content-Type": "multipart/form-data",
+				},
 			});
 		},
 	},
