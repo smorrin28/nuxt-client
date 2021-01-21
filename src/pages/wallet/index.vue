@@ -10,11 +10,13 @@
 		<base-button v-if="templateID" design="success" @click="acceptRequest"
 			><base-icon source="material" icon="check" />Anfrage annehmen</base-button
 		>
-		<input v-if="relationshipID" type="file" @change="saveFile" />
-		<base-button v-if="file" design="primary outline" @click="uploadDocument"
-			><base-icon source="material" icon="ic_default" />Dokument
-			hochladen</base-button
-		>
+    <div v-if="relationshipId">
+      <input type="file" @change="saveFile" />
+      <base-button v-if="file" design="primary outline" @click="uploadDocument"
+      ><base-icon source="material" icon="ic_default" />Dokument
+        hochladen</base-button
+      >
+    </div>
 	</div>
 </template>
 
@@ -23,9 +25,9 @@ export default {
 	async fetch() {},
 	data() {
 		return {
-			templateID: null,
+			templateID: "RLTsml0Y9aSbTRXar37R", // example data
 			qrcode: null,
-			relationshipID: null,
+			relationshipId: "RELD7ODGMtaz8XW1zbEO", // example data
 			message: null,
 			file: null,
 		};
@@ -41,14 +43,14 @@ export default {
 		},
 
 		async acceptRequest() {
-			this.relationshipID = await this.$store.dispatch("wallet/update", [
+			this.relationshipId = await this.$store.dispatch("wallet/update", [
 				null,
 				{
 					templateID: this.templateID,
 				},
 			]);
 
-			console.log(this.relationshipID);
+			console.log(this.relationshipId);
 		},
 
 		saveFile(event) {
@@ -57,16 +59,13 @@ export default {
 		},
 
 		async uploadDocument() {
-			//TODO: multipart/form-data has to be used
-			this.message = await this.$store.dispatch("wallet/patch", [
-				null,
+			this.message = await this.$store.dispatch("wallet/sendFile",
 				{
-					relationshipID: this.relationshipID,
+					relationshipId: this.relationshipId,
 					title: "Sprachzertifikat",
 					description: "B1-Zertifikat DAAD",
 					file: this.file,
-				},
-			]);
+				});
 
 			console.log(this.message);
 		},
