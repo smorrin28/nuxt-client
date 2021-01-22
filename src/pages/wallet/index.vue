@@ -13,10 +13,10 @@
 		<div v-if="relationshipId">
 			<input type="file" @change="saveFile" />
 		</div>
-    <base-button v-if="file" design="primary outline" @click="uploadDocument"
-    ><base-icon source="material" icon="ic_default" />Dokument
-      hochladen</base-button
-    >
+		<base-button v-if="file" design="primary outline" @click="uploadDocument"
+			><base-icon source="material" icon="ic_default" />Dokument
+			hochladen</base-button
+		>
 	</div>
 </template>
 
@@ -51,10 +51,10 @@ export default {
 			]);
 
 			if (this.relationshipId) {
-        console.log(this.relationshipId);
-      } else {
-        console.log('Relationship has to be requested in the IDAS-app!');
-      }
+				console.log(this.relationshipId);
+			} else {
+				console.log("Relationship has to be requested in the IDAS-app!");
+			}
 		},
 
 		saveFile(event) {
