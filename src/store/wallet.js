@@ -18,7 +18,7 @@ const module = mergeDeep(base, {
 
 			console.log(form);
 
-			return this.$axios.$patch("/wallet", form, {
+			return this.$axios.$post("/wallet/files", form, {
 				headers: {
 					"Content-Type": "multipart/form-data",
 				},
