@@ -5,10 +5,7 @@
 		welche Daten du sicher und langfristig speichern möchtest.<br /><br />
 		Noch kein Wallet: Hier findest du eine Liste von Anbietern.
 		<div class="selection">
-			<base-input
-				type="checkbox"
-				label="Manuelles Teilen von Daten"
-			/>
+			<base-input type="checkbox" label="Manuelles Teilen von Daten" />
 			<base-input
 				type="checkbox"
 				label="Lernportfolio: Speicher dein Lernportfolio automatisch in deiner Wallet."
@@ -19,9 +16,9 @@
 				label="Learning Analytics: Speicher dir Daten über deine Nutzung von Bildungsmedien."
 			/>
 		</div>
-    <base-button design="primary" to="/wallet/new"
-    ><base-icon source="material" icon="add" />Wallet verbinden</base-button
-    >
+		<base-button design="primary" to="/wallet/new"
+			><base-icon source="material" icon="add" />Wallet verbinden</base-button
+		>
 	</div>
 </template>
 
