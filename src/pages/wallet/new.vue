@@ -1,30 +1,37 @@
 <template>
 	<div>
-		<base-breadcrumb :inputs="breadcrumbs"></base-breadcrumb>
-		<h2 class="h2">QR-Code scannen</h2>
-		Scanne diesen QR-Code mit deiner Wallet-App auf deinem Smartphone. Schließe
-		dort dann die Verbindungsanfrage ab und wenn du dort bestätigt hast, klicke
-		hier auf "Verbindung abschließen".
-		<div>
-			<div v-if="qrcode" class="qrcode">
-				<img :src="qrcode" />
-			</div>
-			<base-button
-				v-if="templateID"
-				design="success"
-				class="w-100"
-				@click="acceptRequest"
-				><base-icon source="material" icon="check" />Verbindung
-				abschließen</base-button
-			>
-			<div v-if="relationshipId">
-				<input type="file" @change="saveFile" />
-			</div>
-			<base-button v-if="file" design="primary outline" @click="uploadDocument"
-				><base-icon source="material" icon="ic_default" />Dokument
-				hochladen</base-button
-			>
-		</div>
+    <base-breadcrumb :inputs="breadcrumbs"></base-breadcrumb>
+    <section v-if="!relationshipId">
+      <h2 class="h2">QR-Code scannen</h2>
+      Scanne diesen QR-Code mit deiner Wallet-App auf deinem Smartphone. Schließe
+      dort dann die Verbindungsanfrage ab und wenn du dort bestätigt hast, klicke
+      hier auf "Verbindung abschließen".
+      <div>
+        <div v-if="qrcode" class="qrcode">
+          <img :src="qrcode" />
+        </div>
+        <base-button
+            v-if="templateID"
+            design="success"
+            class="w-100"
+            :disabled="disabled"
+            @click="acceptRequest"
+        ><base-icon source="material" icon="check"/>Verbindung
+          abschließen</base-button
+        >
+      </div>
+    </section>
+		<section v-else>
+      <h2 class="h2">Verbindung abgeschlossen!</h2>
+      Du hast dein Wallet erfolgreich verbunden. Dokumente kannst du nun problemlos in dieses hochladen und bekommst sie somit automatisch in der entsprechenden App angezeigt.
+      <br><br>
+      <base-button class="w-100" design="primary outline" to="/wallet/upload">
+        <base-icon source="material" icon="ic_default" />Erstes Dokument in Wallet hochladen
+      </base-button>
+      <base-button design="success" to="/wallet" class="w-100 mt--sm"
+      ><base-icon source="material" icon="check" />Zurück zur Übersicht</base-button
+      >
+    </section>
 	</div>
 </template>
 
@@ -42,9 +49,10 @@ export default {
 	},
 	data() {
 		return {
-			relationshipId: "RELD7ODGMtaz8XW1zbEO", // example data
+			relationshipId: null, // example data: "RELD7ODGMtaz8XW1zbEO"
 			message: null,
 			file: null,
+      disabled: true,
 			breadcrumbs: [
 				{
 					text: "Neues Wallet verbinden",
@@ -60,17 +68,13 @@ export default {
 						source: "fa",
 						icon: "qrcode",
 					},
-				},
-				{
-					text: "Verbindung abschließen",
-					icon: {
-						source: "material",
-						icon: "check",
-					},
-				},
+				}
 			],
 		};
 	},
+  mounted() {
+    setTimeout(() => { this.disabled = false }, 1000*10)
+  },
 	methods: {
 		async acceptRequest() {
 			this.relationshipId = await this.$store.dispatch("wallet/update", [
@@ -91,6 +95,14 @@ export default {
 
 			if (this.relationshipId) {
 				console.log(this.relationshipId);
+
+				this.breadcrumbs.push({
+          text: "Verbindung abschließen",
+          icon: {
+            source: "material",
+            icon: "check",
+          },
+        })
 			} else {
 				console.log("Relationship has to be requested in the IDAS-app!");
 				this.$toast.error(
@@ -102,17 +114,7 @@ export default {
 		saveFile(event) {
 			this.file = event.target.files[0];
 			console.log(this.file);
-		},
-
-		async uploadDocument() {
-			this.message = await this.$store.dispatch("wallet/sendFile", {
-				title: "Sprachzertifikat",
-				description: "B1-Zertifikat DAAD",
-				file: this.file,
-			});
-
-			console.log(this.message);
-		},
+		}
 	},
 	head() {
 		return {
