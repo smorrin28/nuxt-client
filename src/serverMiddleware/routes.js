@@ -35,6 +35,7 @@ const routes = [
 	`^/news/new`,
 	`^/nuxtversion/?$`,
 	`^/wallet/?$`,
+	`^/wallet/new/?$`,
 	// `^/courses/?$`,
 ];
 if (process.env.LERNSTORE_MODE === "EDUSHARING") {
